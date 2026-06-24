@@ -1,65 +1,130 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState } from "react";
+import type { FormEvent } from "react";
+
+const jours = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+const heures = ["9h", "10h", "11h", "12h", "13h", "14h", "15h", "16h", "17h", "18h"];
+const minutes = ["00", "15", "30", "45"];
+
+export default function Accueil() {
+  const [disponibilites, definirDisponibilites] = useState<string[]>([]);
+  const [jour, definirJour] = useState("Lundi");
+  const [heure, definirHeure] = useState("9h");
+  const [minute, definirMinute] = useState("00");
+  const [etatEnvoi, definirEtatEnvoi] = useState<"repos" | "envoi" | "succes" | "erreur">("repos");
+  const [messageStatut, definirMessageStatut] = useState("");
+
+  function ajouterDisponibilite() {
+    const nouvelleDisponibilite = `${jour} à ${heure}${minute}`;
+
+    definirDisponibilites((disponibilitesActuelles) =>
+      disponibilitesActuelles.includes(nouvelleDisponibilite)
+        ? disponibilitesActuelles
+        : [...disponibilitesActuelles, nouvelleDisponibilite],
+    );
+  }
+
+  function supprimerDisponibilite(indexASupprimer: number) {
+    definirDisponibilites((disponibilitesActuelles) =>
+      disponibilitesActuelles.filter((_, index) => index !== indexASupprimer),
+    );
+  }
+
+  async function envoyerFormulaire(evenement: FormEvent<HTMLFormElement>) {
+    evenement.preventDefault();
+    definirEtatEnvoi("envoi");
+    definirMessageStatut("");
+
+    const formulaire = new FormData(evenement.currentTarget);
+    const reponse = await fetch("/api/demandes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        civilite: formulaire.get("civilite"),
+        nom: formulaire.get("nom"),
+        prenom: formulaire.get("prenom"),
+        email: formulaire.get("email"),
+        telephone: formulaire.get("telephone"),
+        sujet: formulaire.get("sujet"),
+        message: formulaire.get("message"),
+        disponibilites,
+      }),
+    });
+
+    const resultat = await reponse.json();
+
+    if (!reponse.ok) {
+      definirEtatEnvoi("erreur");
+      definirMessageStatut(resultat.message);
+      return;
+    }
+
+    evenement.currentTarget.reset();
+    definirDisponibilites([]);
+    definirEtatEnvoi("succes");
+    definirMessageStatut(resultat.message);
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="page">
+      <form className="contact-form" onSubmit={envoyerFormulaire}>
+        <h1>CONTACTEZ L’AGENCE</h1>
+
+        <section className="coordinates">
+          <h2>VOS COORDONNÉES</h2>
+          <div className="radios">
+            <label><input type="radio" name="civilite" value="mme" /> Mme</label>
+            <label><input type="radio" name="civilite" value="m" /> M</label>
+          </div>
+          <div className="name-fields">
+            <input type="text" name="nom" placeholder="Nom" required />
+            <input type="text" name="prenom" placeholder="Prénom" required />
+          </div>
+          <input type="email" name="email" placeholder="Adresse mail" required />
+          <input type="tel" name="telephone" placeholder="Téléphone" required />
+        </section>
+
+        <section className="message">
+          <h2>VOTRE MESSAGE</h2>
+          <div className="radios">
+            <label><input type="radio" name="sujet" value="visite" /> Demande de visite</label>
+            <label><input type="radio" name="sujet" value="rappel" /> Être rappelé·e</label>
+            <label><input type="radio" name="sujet" value="photos" /> Plus de photos</label>
+          </div>
+          <textarea name="message" placeholder="Votre message" required />
+        </section>
+
+        <section className="availability">
+          <h2>DISPONIBILITÉS POUR UNE VISITE</h2>
+          <div className="availability-fields">
+            <select name="jour" value={jour} onChange={(evenement) => definirJour(evenement.target.value)}>
+              {jours.map((jourDisponible) => <option key={jourDisponible}>{jourDisponible}</option>)}
+            </select>
+            <select name="heure" value={heure} onChange={(evenement) => definirHeure(evenement.target.value)}>
+              {heures.map((heureDisponible) => <option key={heureDisponible}>{heureDisponible}</option>)}
+            </select>
+            <select name="minute" value={minute} onChange={(evenement) => definirMinute(evenement.target.value)}>
+              {minutes.map((minuteDisponible) => <option key={minuteDisponible}>{minuteDisponible}</option>)}
+            </select>
+            <button type="button" className="add-button" onClick={ajouterDisponibilite}>
+              AJOUTER<br />DISPO
+            </button>
+          </div>
+
+          {disponibilites.map((disponibilite, index) => (
+            <div className="slot" key={disponibilite}>
+              {disponibilite}
+              <button type="button" onClick={() => supprimerDisponibilite(index)} aria-label={`Supprimer ${disponibilite}`}>×</button>
+            </div>
+          ))}
+        </section>
+
+        <div className="form-status" aria-live="polite">{messageStatut}</div>
+        <button type="submit" className="submit-button" disabled={etatEnvoi === "envoi"}>
+          {etatEnvoi === "envoi" ? "ENVOI..." : "ENVOYER"}
+        </button>
+      </form>
+    </main>
   );
 }

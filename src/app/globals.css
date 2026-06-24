@@ -1,26 +1,258 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --white: #ffffff;
+  --purple: #5921a7;
+  --orange: #ffad19;
+  --text: #ffffff;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  margin: 0;
+  min-height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 28px 34px;
+}
+
+.contact-form {
+  position: relative;
+  display: grid;
+  grid-template-columns: 42% 58%;
+  min-height: 448px;
+  padding: 25px 43px;
+  overflow: hidden;
+  color: var(--text);
+  border-radius: 22px;
+  background:
+    linear-gradient(rgba(38, 24, 19, 0.43), rgba(38, 24, 19, 0.43)),
+    url("/salon.png") center / cover;
+}
+
+/* L’image de fond sera remplacée à l’étape suivante. */
+.contact-form::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  content: "";
+  background: rgba(35, 24, 18, 0.24);
+}
+
+.contact-form > * {
+  position: relative;
+  z-index: 1;
+}
+
+h1 {
+  grid-column: 1 / -1;
+  margin: 0 0 26px;
+  font-size: 24px;
+  letter-spacing: 0.5px;
+}
+
+h2 {
+  margin: 0 0 28px;
+  font-size: 14px;
+}
+
+.coordinates,
+.message,
+.availability {
+  display: flex;
+  flex-direction: column;
+}
+
+.coordinates {
+  gap: 12px;
+  padding-right: 52px;
+}
+
+.message {
+  gap: 12px;
+}
+
+.radios {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 2px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.radios label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.radios input {
+  width: 13px;
+  height: 13px;
+  accent-color: white;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  color: #555;
+  background: white;
+}
+
+input {
+  height: 30px;
+  padding: 0 22px;
+  border-radius: 999px;
+}
+
+.name-fields {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 10px;
+}
+
+textarea {
+  height: 114px;
+  padding: 16px 22px;
+  resize: none;
+  border-radius: 22px;
+}
+
+.availability {
+  grid-column: 1;
+  margin-top: 36px;
+  padding-right: 52px;
+}
+
+.availability h2 {
+  margin-bottom: 23px;
+}
+
+.availability-fields {
+  display: grid;
+  grid-template-columns: 1.5fr 0.8fr 0.9fr 0.95fr;
+  gap: 8px;
+}
+
+select {
+  height: 30px;
+  padding: 0 14px;
+  appearance: auto;
+  border-radius: 999px;
+}
+
+.add-button {
+  min-height: 30px;
+  border: 0;
+  border-radius: 999px;
+  color: white;
+  background: var(--purple);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 10px;
+}
+
+.slot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 133px;
+  height: 22px;
+  margin-top: 8px;
+  padding: 0 7px 0 10px;
+  border-radius: 999px;
+  color: #777;
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 11px;
+}
+
+.slot button {
+  border: 0;
+  color: #777;
+  background: transparent;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.submit-button {
+  position: absolute;
+  right: 85px;
+  bottom: 71px;
+  width: 175px;
+  height: 31px;
+  border: 0;
+  border-radius: 999px;
+  color: white;
+  background: var(--orange);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.submit-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.form-status {
+  position: absolute;
+  right: 85px;
+  bottom: 42px;
+  width: 175px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+@media (max-width: 800px) {
+  .page {
+    padding: 16px;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: 28px;
+  }
+
+  .coordinates,
+  .availability {
+    padding-right: 0;
+  }
+
+  .availability {
+    margin-top: 0;
+  }
+
+  .submit-button {
+    position: static;
+    width: 100%;
+  }
+
+  .form-status {
+    position: static;
+    width: 100%;
+    text-align: center;
+  }
+
+  .radios {
+    flex-wrap: wrap;
+  }
 }
