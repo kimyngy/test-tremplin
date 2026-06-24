@@ -14,6 +14,7 @@ export default function Accueil() {
   const [minute, definirMinute] = useState("00");
   const [etatEnvoi, definirEtatEnvoi] = useState<"repos" | "envoi" | "succes" | "erreur">("repos");
   const [messageStatut, definirMessageStatut] = useState("");
+  const [confirmationOuverte, definirConfirmationOuverte] = useState(false);
 
   function ajouterDisponibilite() {
     const nouvelleDisponibilite = `${jour} à ${heure}${minute}`;
@@ -36,7 +37,8 @@ export default function Accueil() {
     definirEtatEnvoi("envoi");
     definirMessageStatut("");
 
-    const formulaire = new FormData(evenement.currentTarget);
+    const formulaireElement = evenement.currentTarget;
+    const formulaire = new FormData(formulaireElement);
     const reponse = await fetch("/api/demandes", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -60,10 +62,10 @@ export default function Accueil() {
       return;
     }
 
-    evenement.currentTarget.reset();
+    formulaireElement.reset();
     definirDisponibilites([]);
     definirEtatEnvoi("succes");
-    definirMessageStatut(resultat.message);
+    definirConfirmationOuverte(true);
   }
 
   return (
@@ -125,6 +127,18 @@ export default function Accueil() {
           {etatEnvoi === "envoi" ? "ENVOI..." : "ENVOYER"}
         </button>
       </form>
+
+      {confirmationOuverte && (
+        <div className="popup-fond" role="presentation">
+          <div className="popup-confirmation" role="dialog" aria-modal="true" aria-labelledby="titre-confirmation">
+            <h2 id="titre-confirmation">Demande envoyée</h2>
+            <p>Votre demande a bien été envoyée à l’agence.</p>
+            <button type="button" onClick={() => definirConfirmationOuverte(false)}>
+              FERMER
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
