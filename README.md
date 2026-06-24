@@ -6,7 +6,8 @@
 - **Formation :** Étudiante en troisième année de BUT Métiers du Multimédia et de l’Internet (MMI), spécialité Développement Web et dispositifs interactifs.
 - **Stage recherché :** environ 18 semaines pour l’année 2026-2027, selon un rythme de deux semaines en entreprise et deux semaines de cours.
 - **Portfolio :** [nguyen-kimyen.com](https://nguyen-kimyen.com)
-- **GitHub / LinkedIn :** à compléter
+- **LinkedIn :** [nguyen-kimyen](https://www.linkedin.com/in/nguyen-kimyen)
+- **GitHub :** à compléter
 
 ## Aperçu
 
@@ -47,7 +48,7 @@ La base SQLite locale (`demandes.db`) est créée automatiquement lors du premie
 
 ### Avez-vous trouvé l’exercice facile ou difficile ? Qu’est-ce qui vous a posé problème ?
 
-J’ai trouvé l’exercice exigeant, notamment pour reproduire la maquette avec précision et concevoir un formulaire réellement fonctionnel. La gestion des disponibilités, la validation des champs et l’enregistrement des données en base ont demandé une attention particulière.
+J’ai trouvé l’exercice moyennnement difficile, notamment pour reproduire la maquette avec précision et concevoir un formulaire réellement fonctionnel. La gestion des disponibilités, la validation des champs et l’enregistrement des données en base ont demandé une attention particulière.
 
 ### Avez-vous appris de nouveaux outils pour répondre à l’exercice ? Si oui, lesquels ?
 
