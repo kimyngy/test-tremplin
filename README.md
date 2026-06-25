@@ -15,7 +15,13 @@ Intégration d’une page de contact pour une agence immobilière à partir de l
 
 ## Captures d’écran
 
-> Ajouter ici une capture d’écran de la page principale avant le rendu final.
+### Page principale
+
+![Page principale du formulaire](./public/screenshots/page-principale.jpg)
+
+### Message de confirmation
+
+![Message de confirmation après envoi du formulaire](./public/screenshots/confirmation.jpg)
 
 ## Stack technique & choix
 
@@ -33,16 +39,33 @@ Intégration d’une page de contact pour une agence immobilière à partir de l
 
 - Node.js 22 ou une version plus récente
 
-### Installation
+### Installation et lancement
+
+Se placer dans le dossier de l’application :
+
+```bash
+cd app
+```
+
+Installer les dépendances :
 
 ```bash
 npm install
+```
+
+Lancer le serveur de développement :
+
+```bash
 npm run dev
 ```
 
-Ouvrir ensuite [http://localhost:3000](http://localhost:3000).
+Ouvrir ensuite le projet dans le navigateur :
 
-La base SQLite locale (`demandes.db`) est créée automatiquement lors du premier envoi de formulaire. Elle n’est pas versionnée dans Git.
+[http://localhost:3000](http://localhost:3000)
+
+La base SQLite locale (`demandes.db`) est créée automatiquement lors du premier envoi du formulaire. Elle n’est pas versionnée dans Git.
+
+Docker n’est pas nécessaire pour lancer ce projet. J’ai choisi SQLite afin de pouvoir enregistrer les données localement sans dépendre d’un serveur externe.
 
 ## Questions
 
