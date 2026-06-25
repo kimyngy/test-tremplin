@@ -4,7 +4,7 @@
 
 - **Nom / prénom :** NGUYEN Kim Yen
 - **Formation :** Étudiante en troisième année de BUT Métiers du Multimédia et de l’Internet (MMI), spécialité Développement Web et dispositifs interactifs.
-- **Stage recherché :** Je cherche un stage pour l’année 2026-2027, selon un rythme de deux semaines en entreprise et deux semaines de cours, d'environ de 14 à 18 semaines pour l’année 2026-2027 et la date de début devrait se situer autour du 14 décembre, mais reste à confirmer.
+- **Stage recherché :** Je cherche un stage pour l’année 2026-2027, selon un rythme de deux semaines en entreprise et deux semaines de cours, d'environ de 14 à 18 semaines et la date de début devrait se situer autour du 14 décembre, mais reste à confirmer.
 - **Portfolio :** [nguyen-kimyen.com](https://nguyen-kimyen.com)
 - **LinkedIn :** [nguyen-kimyen](https://www.linkedin.com/in/nguyen-kimyen)
 - **GitHub :** [kimyngy](https://github.com/kimyngy)
