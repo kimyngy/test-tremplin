@@ -35,10 +35,9 @@ Intégration d’une page de contact pour une agence immobilière à partir de l
 
 - **Style / UI :** CSS personnalisé  
   J’ai utilisé du CSS personnalisé afin de reproduire la maquette le plus fidèlement possible et de mieux contrôler les espacements, les couleurs, les arrondis et le responsive.
-  Tailwind CSS est installé dans le projet par défaut, mais l’interface a été réalisée principalement en CSS personnalisé.
 
 - **Formulaire :** Formulaire React contrôlé avec validation côté interface  
-  Les champs obligatoires sont vérifiés avant l’envoi afin d’éviter les données incomplètes. De plus, j'ai fais le choix de rajouter une pop up lorsque l'utilisateur valide ses choix et décide d'envoyer son message.
+  Les champs obligatoires sont vérifiés avant l’envoi afin d’éviter les données incomplètes et j'ai également fais le choix de rajouter une pop up lorsque l'utilisateur valide ses choix et décide d'envoyer son message.
 
 - **Base de données :** SQLite  
   J'ai choisi d'utiliser SQLite afin de permettre d’enregistrer les données localement simplement, sans avoir besoin d’installer un serveur de base de données séparé.
