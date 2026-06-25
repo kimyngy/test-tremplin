@@ -56,12 +56,6 @@ Intégration d’une page de contact pour une agence immobilière à partir de l
 
 ### Installation et lancement
 
-Se placer dans le dossier de l’application :
-
-```bash
-cd app
-```
-
 Installer les dépendances :
 
 ```bash
